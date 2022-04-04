@@ -1,4 +1,4 @@
-package br.com.letscode.shop.produto;
+package br.com.letscode.ecommerce.produto.models;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

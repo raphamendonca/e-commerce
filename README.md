@@ -16,7 +16,6 @@ Autenticar ususario
 Carrinho de compras:
     Criar um carrinho de compras
     adicionar e remover produtos de um carrinho.
-    
 
 Requisitos:
  Testes
@@ -24,3 +23,17 @@ Requisitos:
  A aplicação deve salvar os dados na base de dados, podendo ser consultados após um restart da aplicacao.
  Construcao do projeto, estruturação.
 
+----------Campos minimos ( os demais segue como em projeto de aula, ex produto)
+Usuario:
+id
+nomeUsusario
+nome:
+data nascimento;
+data criacao:
+data alteracao
+
+Carrinho:
+Id carrinho
+data criacao
+data alteracao
+Itens

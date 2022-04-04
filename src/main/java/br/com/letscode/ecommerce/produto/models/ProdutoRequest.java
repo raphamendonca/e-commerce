@@ -1,13 +1,11 @@
-package br.com.letscode.shop.produto;
+package br.com.letscode.ecommerce.produto.models;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 
 @Data
@@ -16,18 +14,24 @@ import java.math.BigDecimal;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProdutoRequest {
 
+    //notblank
     private String nome;
 
+// @Sanitize
     private String descricao;
+
 
     private BigDecimal valor;
 
+//    @Pattern("")
     private String codigoBarra;
 
     private Long idFabricante;
 
+//    @Positive
     private Integer peso;
 
+//    @valida enum
     private String pesoUnidadeMedida;
 
 }

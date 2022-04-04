@@ -1,4 +1,4 @@
-package br.com.letscode.shop;
+package br.com.letscode.ecommerce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

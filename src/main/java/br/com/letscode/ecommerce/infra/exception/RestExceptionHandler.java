@@ -1,4 +1,4 @@
-package br.com.letscode.ecommerce.exception;
+package br.com.letscode.ecommerce.infra.exception;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

@@ -1,11 +1,11 @@
-package br.com.letscode.ecommerce.produto.models;
+package br.com.letscode.ecommerce.domain.model.exchange;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class ProdutoFiltros {
+public class ProdutoFiltrosRequest {
 
     private String nome;
     private BigDecimal valor;

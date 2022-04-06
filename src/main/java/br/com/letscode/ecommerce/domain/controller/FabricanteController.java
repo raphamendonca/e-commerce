@@ -1,7 +1,8 @@
-package br.com.letscode.ecommerce.fabricante;
+package br.com.letscode.ecommerce.domain.controller;
 
-import br.com.letscode.ecommerce.produto.models.ProdutoEntity;
-import br.com.letscode.ecommerce.produto.models.ProdutoRequest;
+import br.com.letscode.ecommerce.domain.service.FabricanteService;
+import br.com.letscode.ecommerce.domain.model.exchange.FabricanteRequest;
+import br.com.letscode.ecommerce.domain.model.entity.FabricanteEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

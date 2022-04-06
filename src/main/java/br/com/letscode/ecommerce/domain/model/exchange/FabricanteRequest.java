@@ -1,6 +1,7 @@
-package br.com.letscode.ecommerce.fabricante;
+package br.com.letscode.ecommerce.domain.model.exchange;
 
 
+import br.com.letscode.ecommerce.domain.model.entity.FabricanteEntity;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;

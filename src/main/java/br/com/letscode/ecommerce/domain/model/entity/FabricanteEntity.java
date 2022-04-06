@@ -1,4 +1,4 @@
-package br.com.letscode.ecommerce.fabricante;
+package br.com.letscode.ecommerce.domain.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

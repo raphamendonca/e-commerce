@@ -1,13 +1,12 @@
-package br.com.letscode.ecommerce.produto;
+package br.com.letscode.ecommerce.domain.controller;
 
-import br.com.letscode.ecommerce.produto.models.ProdutoEntity;
-import br.com.letscode.ecommerce.produto.models.ProdutoFiltros;
-import br.com.letscode.ecommerce.produto.models.ProdutoRequest;
+import br.com.letscode.ecommerce.domain.model.exchange.ProdutoFiltrosRequest;
+import br.com.letscode.ecommerce.domain.model.exchange.ProdutoRequest;
+import br.com.letscode.ecommerce.domain.model.entity.ProdutoEntity;
+import br.com.letscode.ecommerce.domain.service.ProdutoService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,14 +24,21 @@ public class ProdutoController {
 
     private ProdutoService produtoService;
 
-    @GetMapping()
+    // http://localhost:8080/users/1/produtos?offset=0&limit=10
+    // http://localhost:8080 => URL / API
+    // /users/1/produtos => endpoint, path => path, 1=> pathVariable
+    // ? offset=0&limit=10 => requestParam ou QueryParam
+    // auth => header, ou seja, cabecalho
+
+
+    @GetMapping
     public ResponseEntity<Page<ProdutoEntity>> get(
             @RequestParam(name = "offset") Integer offset,
             @RequestParam(name = "limit") Integer limit,
             @RequestParam(name = "nome", required = false) String nome,
             @RequestParam(name = "valor_maximo", required = false) BigDecimal valorMaximo
     ){
-        ProdutoFiltros filtros = new ProdutoFiltros();
+        ProdutoFiltrosRequest filtros = new ProdutoFiltrosRequest();
         filtros.setNome(nome);
         filtros.setValor(valorMaximo);
 
@@ -40,9 +46,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produtos);
     }
 
-//    @Secured("USER")
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProdutoEntity> create(
              @RequestBody ProdutoRequest request
     ){
@@ -57,4 +61,5 @@ public class ProdutoController {
         ProdutoEntity produto = produtoService.buscarPorCodigoBarra(codigoBarra);
         return ResponseEntity.ok(produto);
     }
+
 }

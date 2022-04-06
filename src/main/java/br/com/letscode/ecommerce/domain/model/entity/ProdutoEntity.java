@@ -1,6 +1,6 @@
-package br.com.letscode.ecommerce.produto.models;
+package br.com.letscode.ecommerce.domain.model.entity;
 
-import br.com.letscode.ecommerce.fabricante.FabricanteEntity;
+import br.com.letscode.ecommerce.domain.model.enums.ProdutoStatus;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

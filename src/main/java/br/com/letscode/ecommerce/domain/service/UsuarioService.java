@@ -4,14 +4,7 @@ import br.com.letscode.ecommerce.domain.model.entity.UsuarioEntity;
 import br.com.letscode.ecommerce.domain.model.exchange.UsuarioFiltrosRequest;
 import br.com.letscode.ecommerce.domain.model.exchange.UsuarioRequest;
 import br.com.letscode.ecommerce.domain.model.pagination.OffsetLimitPageable;
-import br.com.letscode.ecommerce.domain.model.entity.FabricanteEntity;
-import br.com.letscode.ecommerce.domain.repository.FabricanteRepository;
-import br.com.letscode.ecommerce.domain.repository.ProdutoRepository;
 import br.com.letscode.ecommerce.domain.repository.UsuarioRepository;
-import br.com.letscode.ecommerce.domain.specification.ProdutoSpecifications;
-import br.com.letscode.ecommerce.domain.model.entity.ProdutoEntity;
-import br.com.letscode.ecommerce.domain.model.exchange.ProdutoFiltrosRequest;
-import br.com.letscode.ecommerce.domain.model.exchange.ProdutoRequest;
 import br.com.letscode.ecommerce.domain.specification.UsuarioSpecifications;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -58,12 +51,27 @@ public class UsuarioService {
         //TODO implementar exception para o sistema
         UsuarioEntity usuarioEntity = toEntity(usuarioRequest);
 
-        return UsuarioRepository.save(usuarioEntity);
+        return usuarioRepository.save(usuarioEntity);
+    }
+
+    public UsuarioEntity atualizar(Long id, UsuarioRequest usuarioRequest) {
+        Optional<UsuarioEntity> usuario = usuarioRepository.findById(id);
+        //UsuarioEntity usuarioEntity = toEntity(usuarioRequest);
+        /*UsuarioEntity usuarioParaAtualizar = UsuarioEntity(
+                id = usuario.getId(),
+                nome = usuario.getNome(),
+                dataNascimento = usuario.getDataNascimento()*/
+        //);
+        UsuarioEntity usuarioEntity = usuario.get();
+        usuarioEntity.setNome(usuarioRequest.getNome());
+        usuarioEntity.setDataNascimento(usuarioRequest.getDataNascimento());
+        return usuarioRepository.save(usuarioEntity);
     }
 
     private UsuarioEntity toEntity(UsuarioRequest usuarioRequest) {
         return new UsuarioEntity(
-                usuarioRequest.getNome()
+                usuarioRequest.getNome(),
+                usuarioRequest.getDataNascimento()
 
         );
     }

@@ -4,22 +4,17 @@ import br.com.letscode.ecommerce.domain.model.entity.UsuarioEntity;
 import br.com.letscode.ecommerce.domain.model.exchange.ProdutoFiltrosRequest;
 import br.com.letscode.ecommerce.domain.model.exchange.ProdutoRequest;
 import br.com.letscode.ecommerce.domain.model.exchange.UsuarioFiltrosRequest;
+import br.com.letscode.ecommerce.domain.model.exchange.UsuarioRequest;
 import br.com.letscode.ecommerce.domain.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
 @AllArgsConstructor
-@RequestMapping("produtos")
+@RequestMapping("usuarios")
 @RestController
 public class UsuarioController {
 
@@ -42,18 +37,25 @@ public class UsuarioController {
         filtros.setNome(nome);
 
 
-        Page<UsuarioEntity> usuarios = UsuarioService.buscarTodos(offset, limit, filtros);
+        Page<UsuarioEntity> usuarios = usuarioService.buscarTodos(offset, limit, filtros);
         return ResponseEntity.ok(usuarios);
     }
 
     @PostMapping
     public ResponseEntity<UsuarioEntity> create(
-            @RequestBody ProdutoRequest request
+            @RequestBody UsuarioRequest request
     ){
         UsuarioEntity usuario = usuarioService.criar(request);
         return ResponseEntity.created(null).body(usuario);
     }
 
-
+    @PutMapping("{id}")
+    public ResponseEntity<UsuarioEntity> update(
+            @PathVariable("id") Long id,
+            @RequestBody UsuarioRequest request
+    ){
+        UsuarioEntity usuario = usuarioService.atualizar(id, request);
+        return ResponseEntity.ok(usuario);
+    }
 
 }

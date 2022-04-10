@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -29,14 +30,14 @@ import java.util.UUID;
 public class UsuarioEntity {
     @Id
     @Setter(AccessLevel.NONE)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "NOME")
     private String nome;
 
     @Column(name = "DATA_NASCIMENTO")
-    private ZonedDateTime dataNascimento;
+    private String dataNascimento;
 
     @Column(name = "DATA_CRIACAO")
     private ZonedDateTime dataCriacao;
@@ -45,10 +46,10 @@ public class UsuarioEntity {
     private ZonedDateTime dataAtualizacao;
 
 
-    public UsuarioEntity(String nome) {
+    public UsuarioEntity(String nome, String dataNascimento) {
 
         this.nome = nome;
-        this.dataNascimento = ZonedDateTime.now();
+        this.dataNascimento = dataNascimento;
         this.dataCriacao = ZonedDateTime.now();
         this.dataAtualizacao = ZonedDateTime.now();
     }

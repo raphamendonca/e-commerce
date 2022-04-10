@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +17,7 @@ public class UsuarioRequest {
 
     //notblank
     private String nome;
+    private String dataNascimento;
 
 
 }

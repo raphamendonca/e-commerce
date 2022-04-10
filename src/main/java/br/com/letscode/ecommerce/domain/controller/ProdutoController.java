@@ -25,6 +25,9 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     // http://localhost:8080/users/1/produtos?offset=0&limit=10
+    // http://localhost:8080/users/1/produtos
+    // ?offset=0&limit=10
+
     // http://localhost:8080 => URL / API
     // /users/1/produtos => endpoint, path => path, 1=> pathVariable
     // ? offset=0&limit=10 => requestParam ou QueryParam
@@ -33,11 +36,12 @@ public class ProdutoController {
 
     @GetMapping
     public ResponseEntity<Page<ProdutoEntity>> get(
-            @RequestParam(name = "offset") Integer offset,
-            @RequestParam(name = "limit") Integer limit,
+            @RequestParam(name = "offset", required = false) Integer offset ,
+            @RequestParam(name = "limit", required = false) Integer limit,
             @RequestParam(name = "nome", required = false) String nome,
             @RequestParam(name = "valor_maximo", required = false) BigDecimal valorMaximo
     ){
+
         ProdutoFiltrosRequest filtros = new ProdutoFiltrosRequest();
         filtros.setNome(nome);
         filtros.setValor(valorMaximo);

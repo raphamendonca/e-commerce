@@ -40,7 +40,9 @@ public class ProdutoService {
     }
 
     public ProdutoEntity buscarPorId(Long id){
-        return produtoRepository.findById(id).get();//TODO adicionar tratativa para optional empty
+
+        return produtoRepository.findById(id).get();
+//                .orElseThrow(() -> new EcomerceException(ERRO_AOBUSCAR));//TODO adicionar tratativa para optional empty
     }
 
     public ProdutoEntity buscarPorCodigoBarra(String codigoBarra){

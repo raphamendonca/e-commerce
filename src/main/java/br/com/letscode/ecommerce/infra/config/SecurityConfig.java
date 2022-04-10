@@ -1,5 +1,8 @@
 package br.com.letscode.ecommerce.infra.config;
 
+import br.com.letscode.ecommerce.domain.service.UsuarioDetalheService;
+import br.com.letscode.ecommerce.infra.auth.AutenticacaoEntryPoint;
+import br.com.letscode.ecommerce.infra.filter.AutorizacaoFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,23 +23,47 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
+
+    @Autowired
+    private AutenticacaoEntryPoint autenticacaoEntryPoint;
+
+    @Autowired
+    private AutorizacaoFilter autorizacaoFilter;
+
+    @Autowired
+    private UsuarioDetalheService usuarioDetalheService;
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // desabilita o CSRF, crossscript
         http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/**").permitAll() // <<< LIBERAR TUDO
-                .and()
-                .formLogin().and()
-                .httpBasic();
+        // libera o endpoint autorizacao de ser autenticado
+        .authorizeRequests()
+                .antMatchers("/autenticacao", "/autenticacao/")
+                .permitAll()
+        // Todas as outras requisicoes precisam ser autenticadas
+        .anyRequest().authenticated().and()
+                // Exception Handler do Spring Security
+                .exceptionHandling().authenticationEntryPoint(autenticacaoEntryPoint)
+                .and().sessionManagement()
+                // Sessao da API é stateless
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(autorizacaoFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder  auth) throws Exception {
+        auth.userDetailsService(usuarioDetalheService).passwordEncoder(passwordEncoder());
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

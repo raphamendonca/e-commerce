@@ -7,19 +7,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "USUARIO")
@@ -28,13 +24,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioEntity {
+
     @Id
     @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
     @Column(name = "NOME")
     private String nome;
+
+
 
     @Column(name = "DATA_NASCIMENTO")
     private String dataNascimento;
@@ -44,6 +44,8 @@ public class UsuarioEntity {
 
     @Column(name = "DATA_ATUALIZACAO")
     private ZonedDateTime dataAtualizacao;
+
+
 
 
     public UsuarioEntity(String nome, String dataNascimento) {

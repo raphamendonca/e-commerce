@@ -1,68 +1,54 @@
 package br.com.letscode.ecommerce.domain.model.entity;
 
+import br.com.letscode.ecommerce.domain.model.enums.ProdutoStatus;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
+import java.util.UUID;
 
-
+@Entity(name = "USUARIO")
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "usuario")
-public class UsuarioEntity implements UserDetails {
+public class UsuarioEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String usuario;
-    private String senha;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<PerfilEntity> perfis;
+    @Column(name = "NOME")
+    private String nome;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.perfis;
+    @Column(name = "DATA_NASCIMENTO")
+    private String dataNascimento;
+
+    @Column(name = "DATA_CRIACAO")
+    private ZonedDateTime dataCriacao;
+
+    @Column(name = "DATA_ATUALIZACAO")
+    private ZonedDateTime dataAtualizacao;
+
+
+    public UsuarioEntity(String nome, String dataNascimento) {
+
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.dataCriacao = ZonedDateTime.now();
+        this.dataAtualizacao = ZonedDateTime.now();
     }
 
-    @Override
-    public String getPassword() {
-        return this.senha;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.usuario;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

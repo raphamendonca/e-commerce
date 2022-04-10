@@ -36,13 +36,29 @@ public class UsuarioService {
         );
     }
 
+    //usar este caso o outro buscarPorId falhe.
+//    public UsuarioEntity buscarPorId(Long id) {
+//        return usuarioRepository.findById(id).get();
+//    }
+
     public UsuarioEntity buscarPorId(Long id) {
-        return usuarioRepository.findById(id).get();//TODO adicionar tratativa para optional empty
+        Optional<UsuarioEntity> usuarioResponse = usuarioRepository.findById(id);
+
+        if(usuarioResponse.isPresent()) {
+            usuarioResponse.get();
+        } else {
+            throw new RuntimeException("Não foi encontrado o id: " + id);
+        }
+        return usuarioResponse.get();
     }
 
-   /* public UsuarioEntity buscarPorCodigoBarra(String codigoBarra){
-        return usuarioRepository.findByCodigoBarra(codigoBarra);
-    }*/
+    public UsuarioEntity buscarPorNome(String nome){
+        return usuarioRepository.findByName(nome);
+    }
+
+    public void apagarPorId(Long id) {
+        usuarioRepository.deleteById(id);
+    }
 
     public UsuarioEntity criar(UsuarioRequest usuarioRequest) {
 

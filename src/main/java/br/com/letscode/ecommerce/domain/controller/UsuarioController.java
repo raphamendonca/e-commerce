@@ -58,4 +58,30 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<UsuarioEntity> getById(
+            @PathVariable(name = "id") Long id) {
+
+        UsuarioEntity usuarioBusca = usuarioService.buscarPorId(id);
+
+        return ResponseEntity.ok(usuarioBusca);
+    }
+
+    @GetMapping("/usuario/{nome}")
+    public ResponseEntity<UsuarioEntity> getByName(
+            @PathVariable(name = "nome") String nome) {
+
+        UsuarioEntity usuarioBuscaNome = usuarioService.buscarPorNome(nome);
+
+        return ResponseEntity.ok(usuarioBuscaNome);
+    }
+
+    @DeleteMapping("/usuario/{id}")
+    public String deleteUserById(
+            @PathVariable(name = "id") Long id){
+
+        usuarioService.apagarPorId(id);
+
+        return "The user has been deleted.";
+    }
 }

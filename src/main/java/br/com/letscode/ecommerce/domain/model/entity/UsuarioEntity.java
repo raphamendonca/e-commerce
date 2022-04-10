@@ -30,11 +30,8 @@ public class UsuarioEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     @Column(name = "NOME")
     private String nome;
-
-
 
     @Column(name = "DATA_NASCIMENTO")
     private String dataNascimento;
@@ -44,8 +41,6 @@ public class UsuarioEntity {
 
     @Column(name = "DATA_ATUALIZACAO")
     private ZonedDateTime dataAtualizacao;
-
-
 
 
     public UsuarioEntity(String nome, String dataNascimento) {
